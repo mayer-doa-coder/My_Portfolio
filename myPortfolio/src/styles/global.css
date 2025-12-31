@@ -132,3 +132,43 @@ html {
   }
 }
 
+.hero-social-icon {
+  color: var(--heroSocialColor);
+  transition: transform 0.3s ease;
+}
+
+.hero-social-icon:hover {
+  transform: scale(1.1);
+}
+
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.w-90 {
+  width: 360px;
+}
+
+.w-125 {
+  width: 500px;
+}
+
+/* Section Title Line Styles */
+.Title_Line::before,
+.Title_Line::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: currentColor;
+  margin: 0 20px;
+}
+
+.Title-Tag.primary {
+  color: var(--primary);
+}
+
+.Title-Tag.secondary {
+  color: var(--secondary);
+}

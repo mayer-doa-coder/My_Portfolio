@@ -1,7 +1,44 @@
 ---
+import { Image } from "astro:assets";
+import SectionTitle from "./SectionTitle.astro";
 ---
 
-<section>
-  <h2>About Me</h2>
-  <p>This is the about section.</p>
+<section id="about" class="w-full min-h-screen px-6 py-4 pt-14 bg-background">
+    <SectionTitle
+        title="About Me"
+        color="primary"
+        className="h-screen flex flex-col justify-center"
+    >
+        <div class="flex_center flex-col lg:flex-row w-full h-full py-10 gap-8">
+      
+
+            <div
+                class="Fade_Up w-full md:w-[80%] lg:w-[60%] flex justify-center items-start flex-col gap-4 lg:border-l border-primary py-8 lg:pl-10 font-mono"
+            >
+                <h2 class="Fade_Up text-[1.5em] font-bold">Hey there!</h2>
+                <p class="Fade_Up text-justify">
+                    I am a Computer Science and Engineering undergraduate at Khulna University 
+                    of Engineering & Technology (KUET), currently building a strong foundation 
+                    in algorithms, software engineering, database, machine learning, web development, and system design.
+                </p>
+                <p class="Fade_Up text-justify">
+                    I enjoy working close to the core of systems using C and C++, 
+                    while also exploring modern web development with JavaScript, TypeScript, 
+                    React.js, Node.js, and Laravel. In parallel, I am developing an interest 
+                    in data science and machine learning, using Python to understand and 
+                    solve data-driven problems.
+                </p>
+                <p class="Fade_Up text-justify">
+                    What excites me most is designing scalable systems and creating clean, 
+                    intuitive user interfaces that solve real-world problems efficiently. 
+                    Beyond academics, I regularly work on personal and academic projects and 
+                    take part in competitive programming contests, which help sharpen my 
+                    logical thinking and problem-solving skills.
+                </p>
+                <p class="Fade_Up text-justify">
+                    I am motivated by continuous learning and enjoy turning ideas 
+                    into reliable, well-structured software solutions.
+            </div>
+        </div>
+    </SectionTitle>
 </section>
