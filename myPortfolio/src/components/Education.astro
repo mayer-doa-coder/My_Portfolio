@@ -1,0 +1,87 @@
+---
+import SectionTitle from "./SectionTitle.astro";
+
+const educationData = [
+  {
+    degree: "Bachelor of Science (BSc) in Computer Science & Engineering",
+    institution: "Khulna University of Engineering & Technology (KUET)",
+    address: "Fulbarigate, Khulna, Bangladesh",
+    period: "2023 - Present",
+    details: [
+      "Focus areas: Software Engineering, Algorithms, Data Structures, Emerging Technologies",
+      "Actively involved in programming contests and project development",
+    ],
+  },
+  {
+    degree: "Higher Secondary Certificate (HSC)",
+    institution: "St. Joseph Higher Secondary School",
+    address: "Asadgate, Dhaka, Bangladesh",
+    period: "2022",
+    details: [
+      "Science background with strong emphasis on Mathematics and Physics",
+    ],
+  },
+  {
+    degree: "Secondary School Certificate (SSC)",
+    institution: "Mirpur Cantonment Public School & College",
+    address: "Mirpur-12 DOHS, Dhaka, Bangladesh",
+    period: "2019",
+    details: ["Built strong academic fundamentals and problem-solving skills"],
+  },
+];
+---
+
+<section
+  id="education"
+  class="w-full min-h-screen px-6 py-4 pt-14 bg-background"
+>
+  <SectionTitle title="Education" color="primary" />
+
+  <div class="flex_center w-full py-19">
+    <div
+      class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      {
+        educationData.map((edu, index) => (
+          <div class="Fade_Up group relative h-full">
+            {/* Content Card */}
+            <div class="relative bg-card/30 hover:bg-card/50 border border-border/50 hover:border-primary/30 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 font-mono backdrop-blur-sm h-full flex flex-col">
+              {/* Institution & Period Container */}
+              <div class="space-y-2 mb-4">
+                <p class="text-sm sm:text-base font-semibold text-foreground/90">
+                  {edu.institution}
+                </p>
+
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-foreground/60">
+                  <span class="font-medium">{edu.address}</span>
+                </div>
+
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-foreground/60">
+                  <span class="font-medium">{edu.period}</span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div class="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-4" />
+
+              {/* Details List */}
+              <ul class="space-y-2 flex-grow">
+                {edu.details.map((detail) => (
+                  <li class="text-xs sm:text-sm text-foreground/75 flex items-start gap-2 leading-relaxed">
+                    <span class="text-primary mt-1 flex-shrink-0 font-bold">
+                      ›
+                    </span>
+                    <span class="flex-1">{detail}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Decorative Corner Accent */}
+              <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
