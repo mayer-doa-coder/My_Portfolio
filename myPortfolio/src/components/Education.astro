@@ -62,13 +62,13 @@ const educationData = [
               </div>
 
               {/* Divider */}
-              <div class="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-4" />
+              <div class="h-px bg-linear-to-r from-transparent via-primary/20 to-transparent mb-4" />
 
               {/* Details List */}
-              <ul class="space-y-2 flex-grow">
+              <ul class="space-y-2 grow">
                 {edu.details.map((detail) => (
                   <li class="text-xs sm:text-sm text-foreground/75 flex items-start gap-2 leading-relaxed">
-                    <span class="text-primary mt-1 flex-shrink-0 font-bold">
+                    <span class="text-primary mt-1 shrink-0 font-bold">
                       ›
                     </span>
                     <span class="flex-1">{detail}</span>
@@ -77,7 +77,7 @@ const educationData = [
               </ul>
 
               {/* Decorative Corner Accent */}
-              <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div class="absolute top-0 right-0 w-16 h-16 bg-linear-to-br from-primary/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </div>
         ))
