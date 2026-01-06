@@ -1,43 +1,99 @@
 ---
-import { Image } from "astro:assets";
 import SectionTitle from "./SectionTitle.astro";
 ---
 
 <section id="about" class="w-full min-h-screen px-6 py-4 pt-14 bg-background">
-    <SectionTitle
-        title="About Me"
-        color="primary"
-        className="h-screen flex flex-col justify-center"
-    >
-        <div class="flex_center flex-col lg:flex-row w-full h-full py-10 gap-8">
-      
+    <SectionTitle title="About Me" color="primary">
+        <div class="max-w-7xl mx-auto py-20">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                
+                <!-- Left Side - Feature Grid -->
+                <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- Clean Code Card -->
+                    <div class="Fade_Up group p-6 rounded-lg border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                        <div class="mb-4 text-primary">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-foreground font-mono">Clean Code</h3>
+                        <p class="text-foreground/70 text-sm font-mono">Writing maintainable and scalable code</p>
+                    </div>
 
-            <div
-                class="Fade_Up w-full md:w-[80%] lg:w-[60%] flex justify-center items-start flex-col gap-4 lg:border-l border-primary py-8 lg:pl-10 font-mono"
-            >
-                <h2 class="Fade_Up text-[1.5em] font-bold">Hey there!</h2>
-                <p class="Fade_Up text-justify">
-                    I am a Computer Science and Engineering undergraduate at Khulna University 
-                    of Engineering & Technology (KUET), currently building a strong foundation 
-                    in algorithms, software engineering, database, machine learning, web development, and system design.
-                </p>
-                <p class="Fade_Up text-justify">
-                    I enjoy working close to the core of systems using C and C++, 
-                    while also exploring modern web development with JavaScript, TypeScript, 
-                    React.js, Node.js, and Laravel. In parallel, I am developing an interest 
-                    in data science and machine learning, using Python to understand and 
-                    solve data-driven problems.
-                </p>
-                <p class="Fade_Up text-justify">
-                    What excites me most is designing scalable systems and creating clean, 
-                    intuitive user interfaces that solve real-world problems efficiently. 
-                    Beyond academics, I regularly work on personal and academic projects and 
-                    take part in competitive programming contests, which help sharpen my 
-                    logical thinking and problem-solving skills.
-                </p>
-                <p class="Fade_Up text-justify">
-                    I am motivated by continuous learning and enjoy turning ideas 
-                    into reliable, well-structured software solutions.
+                    <!-- Web Applications Card -->
+                    <div class="Fade_Up group p-6 rounded-lg border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10" style="animation-delay: 0.1s;">
+                        <div class="mb-4 text-primary">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-foreground font-mono">Web Applications</h3>
+                        <p class="text-foreground/70 text-sm font-mono">Full-stack web development expertise</p>
+                    </div>
+
+                    <!-- IoT Card -->
+                    <div class="Fade_Up group p-6 rounded-lg border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10" style="animation-delay: 0.2s;">
+                        <div class="mb-4 text-primary">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6M5.93 5.93l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M5.93 18.07l4.24-4.24m5.66-5.66l4.24-4.24"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-foreground font-mono">IoT & Embedded</h3>
+                        <p class="text-foreground/70 text-sm font-mono">Smart devices and sensor integration</p>
+                    </div>
+
+                    <!-- Problem Solving Card -->
+                    <div class="Fade_Up group p-6 rounded-lg border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10" style="animation-delay: 0.3s;">
+                        <div class="mb-4 text-primary">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-foreground font-mono">1000+ Problems</h3>
+                        <p class="text-foreground/70 text-sm font-mono">Competitive programming expertise</p>
+                    </div>
+
+                </div>
+
+                <!-- Right Side - About Content -->
+                <div class="w-full lg:w-1/2 space-y-6">
+                    
+                    <div class="Fade_Up">
+                        <h2 class="text-3xl font-bold mb-6 text-primary font-mono">Hey there! </h2>
+                        <div class="space-y-4 text-foreground/90 font-mono">
+                            <p class="leading-relaxed">
+                                I am a Computer Science and Engineering undergraduate at <span class="text-primary font-semibold">Khulna University 
+                                of Engineering & Technology (KUET)</span>, currently building a strong foundation 
+                                in algorithms, software engineering, database, machine learning, web development, and system design.
+                            </p>
+                            <p class="leading-relaxed">
+                                I enjoy working close to the core of systems using <span class="text-primary font-semibold">C and C++</span>, 
+                                while also exploring modern web development with <span class="text-primary font-semibold">JavaScript, TypeScript, 
+                                React.js, Node.js, and Laravel</span>. In parallel, I am developing an interest 
+                                in data science and machine learning, using <span class="text-primary font-semibold">Python</span> to understand and 
+                                solve data-driven problems.
+                            </p>
+                            <p class="leading-relaxed">
+                                What excites me most is designing scalable systems and creating clean, 
+                                intuitive user interfaces that solve real-world problems efficiently. 
+                                Beyond academics, I regularly work on personal and academic projects and 
+                                take part in competitive programming contests, which help sharpen my 
+                                logical thinking and problem-solving skills.
+                            </p>
+                            <p class="leading-relaxed">
+                                I am motivated by continuous learning and enjoy turning ideas 
+                                into reliable, well-structured software solutions.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </SectionTitle>
