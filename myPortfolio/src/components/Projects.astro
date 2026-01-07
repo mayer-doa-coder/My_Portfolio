@@ -20,7 +20,7 @@ const { ProjectsList } = await import("../lib/ProjectsList");
                     if (project?.hideProject) return;
 
                     return (
-                        <div class="Project_Stagger Card_Main w-full h-fit flex_center flex-col bg-cardGradient overflow-hidden rounded-[0.4em] mt-3 border-2 border-border hover:border-primary transition-all duration-300">
+                        <div class="Project_Stagger Card_Main w-full h-fit flex_center flex-col bg-cardGradient overflow-hidden rounded-[0.4em] mt-3 border-2 border-border hover:border-transparent hover:shadow-[0_0_20px_rgba(123,97,255,0.5)] transition-all duration-300 relative before:absolute before:inset-0 before:rounded-[0.4em] before:p-[2px] before:bg-gradient-vibrant before:opacity-0 hover:before:opacity-100 before:transition-opacity before:-z-10">
                             <a 
                                 href={project.Source}
                                 target="_blank"

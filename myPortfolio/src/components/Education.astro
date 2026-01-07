@@ -45,7 +45,7 @@ const educationData = [
         educationData.map((edu, index) => (
           <div class="Fade_Up group relative h-full">
             {/* Content Card */}
-            <div class="relative bg-card/30 hover:bg-card/50 border border-border/50 hover:border-primary/30 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 font-mono backdrop-blur-sm h-full flex flex-col">
+            <div class="relative bg-card/30 hover:bg-card/50 border border-border/50 hover:border-transparent rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_20px_rgba(123,97,255,0.3)] font-mono backdrop-blur-sm h-full flex flex-col before:absolute before:inset-0 before:rounded-xl before:p-[2px] before:bg-gradient-vibrant before:opacity-0 hover:before:opacity-100 before:transition-opacity before:-z-10">
               {/* Institution & Period Container */}
               <div class="space-y-2 mb-4">
                 <p class="text-sm sm:text-base font-semibold text-foreground/90">
@@ -68,7 +68,7 @@ const educationData = [
               <ul class="space-y-2 grow">
                 {edu.details.map((detail) => (
                   <li class="text-xs sm:text-sm text-foreground/75 flex items-start gap-2 leading-relaxed">
-                    <span class="text-primary mt-1 shrink-0 font-bold">
+                    <span class="text-gradient-full mt-1 shrink-0 font-bold">
                       ›
                     </span>
                     <span class="flex-1">{detail}</span>
