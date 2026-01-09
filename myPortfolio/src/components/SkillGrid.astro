@@ -27,11 +27,16 @@ const { stack } = Astro.props;
           <img
             src={skill.icon.src}
             alt={skill.name}
-            class="w-full h-full object-contain"
+            class:list={[
+              "w-full h-full object-contain",
+              {
+                "skill-icon-light": ["Next.js", "GitHub", "Astro", "Express.js"].includes(skill.name)
+              }
+            ]}
             loading="lazy"
           />
         </div>
-        <span class="text-[10px] sm:text-xs font-medium text-center text-foreground/80 text-gradient-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+        <span class="text-[10px] sm:text-xs font-bold text-center text-foreground/80 transition-colors duration-300">
           {skill.name}
         </span>
       </a>

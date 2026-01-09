@@ -122,13 +122,34 @@ html {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
   }
 }
 
 @layer utilities {
   .font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  }
+  
+  /* Animated Underline Effect */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
   }
   
   /* Modern Gradient Text Utilities */
@@ -183,6 +204,16 @@ html {
   
   .border-gradient-vibrant {
     border-image: linear-gradient(135deg, oklch(0.488 0.243 264.376), oklch(0.627 0.265 303.9), oklch(0.645 0.246 16.439)) 1;
+  }
+  
+  /* Icon filter for light mode - inverts white icons to black */
+  .skill-icon-light {
+    filter: brightness(0) saturate(100%);
+  }
+  
+  /* Remove filter in dark mode */
+  .dark .skill-icon-light {
+    filter: none;
   }
 }
 
