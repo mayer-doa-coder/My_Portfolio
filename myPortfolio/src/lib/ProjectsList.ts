@@ -496,7 +496,7 @@ export const ProjectsList: ProjectsListType = [
     versions: [],
   },
   {
-    Name: "Numerical Method Project",
+    Name: "Movie Database Management",
     ShortDesc:"A movie database management system with real-time SQL query monitoring. Built with PHP, MySQL, and JavaScript. Implements all SQL operation coverage including advanced concepts, views, set operations, and complex queries. Features an intuitive web interface for seamless interaction and monitoring.",
     Desc: "The Numerical Method Project showcases the application of advanced numerical techniques to solve complex mathematical problems that are difficult or impossible to solve analytically. This project demonstrates proficiency in implementing numerical algorithms with a strong focus on computational accuracy, algorithmic efficiency, and optimization. It covers various numerical methods including root finding, integration, differentiation, and solving differential equations.",
     Logo: movieLogo,

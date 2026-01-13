@@ -218,7 +218,7 @@ html {
 }
 
 .hero-social-icon {
-  color: var(--heroSocialColor);
+  color: currentColor;
   transition: transform 0.3s ease;
 }
 

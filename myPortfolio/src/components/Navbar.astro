@@ -2,9 +2,9 @@
 import { Download, Menu, X, Sun, Moon } from "lucide-preact";
 ---
 
-<header id="header" class="sticky top-0 z-50 w-full">
+<header id="header" class="fixed top-0 left-0 right-0 z-50 w-full">
   <div
-    class="flex justify-between items-center w-full px-4 md:px-6 py-3 md:py-4 bg-background/80 backdrop-blur-md border-b border-border"
+    class="flex justify-between items-center w-full px-4 md:px-6 py-3 md:py-4 bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
   >
     <!-- Logo -->
     <a
@@ -80,7 +80,7 @@ import { Download, Menu, X, Sun, Moon } from "lucide-preact";
   <!-- Mobile Navigation -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-border"
+    class="hidden lg:hidden fixed top-[73px] left-0 right-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-40"
   >
     <nav
       class="flex flex-col gap-1 p-4 font-bold font-mono"
