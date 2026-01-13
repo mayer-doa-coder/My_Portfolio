@@ -5,6 +5,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 @theme inline {
@@ -123,6 +124,50 @@ html {
   }
   body {
     @apply bg-background text-foreground font-mono;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  /* Animated Background Pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.03;
+    background-image: 
+      radial-gradient(circle at 20% 50%, oklch(0.488 0.243 264.376) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, oklch(0.627 0.265 303.9) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, oklch(0.645 0.246 16.439) 0%, transparent 50%);
+    background-size: 100% 100%;
+    animation: gradient-shift 20s ease infinite;
+  }
+  
+  .dark body::before {
+    opacity: 0.05;
+  }
+  
+  /* Subtle Grid Pattern */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.015;
+    background-image: 
+      linear-gradient(0deg, transparent 24%, oklch(0.488 0.243 264.376) 25%, oklch(0.488 0.243 264.376) 26%, transparent 27%, transparent 74%, oklch(0.488 0.243 264.376) 75%, oklch(0.488 0.243 264.376) 76%, transparent 77%, transparent),
+      linear-gradient(90deg, transparent 24%, oklch(0.488 0.243 264.376) 25%, oklch(0.488 0.243 264.376) 26%, transparent 27%, transparent 74%, oklch(0.488 0.243 264.376) 75%, oklch(0.488 0.243 264.376) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+  }
+  
+  .dark body::after {
+    opacity: 0.025;
   }
 }
 
@@ -232,14 +277,6 @@ html {
   align-items: center;
 }
 
-.w-90 {
-  width: 360px;
-}
-
-.w-125 {
-  width: 500px;
-}
-
 /* Section Title Line Styles */
 .Title_Line::before,
 .Title_Line::after {
@@ -250,10 +287,123 @@ html {
   margin: 0 20px;
 }
 
-.Title-Tag.primary {
-  color: var(--primary);
+/* Keyframe Animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(5%, -5%) scale(1.1);
+  }
+  66% {
+    transform: translate(-5%, 5%) scale(0.9);
+  }
 }
 
-.Title-Tag.secondary {
-  color: var(--secondary);
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation Classes */
+.Fade_Up {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.Fade_Down {
+  animation: fade-in-down 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.Fade_In {
+  animation: fade-in 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.Fade_Stagger {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.Fade_Stagger:nth-child(1) { animation-delay: 0.1s; }
+.Fade_Stagger:nth-child(2) { animation-delay: 0.2s; }
+.Fade_Stagger:nth-child(3) { animation-delay: 0.3s; }
+.Fade_Stagger:nth-child(4) { animation-delay: 0.4s; }
+.Fade_Stagger:nth-child(5) { animation-delay: 0.5s; }
+
+.Project_Stagger {
+  animation: scale-in 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.Project_Stagger:nth-child(1) { animation-delay: 0.1s; }
+.Project_Stagger:nth-child(2) { animation-delay: 0.2s; }
+.Project_Stagger:nth-child(3) { animation-delay: 0.3s; }
+.Project_Stagger:nth-child(4) { animation-delay: 0.4s; }
+.Project_Stagger:nth-child(5) { animation-delay: 0.5s; }
+.Project_Stagger:nth-child(6) { animation-delay: 0.6s; }
+
+/* Floating Animation for Profile Picture */
+.profile-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Smooth Transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input Focus Animation */
+input:focus,
+textarea:focus,
+select:focus {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
 }

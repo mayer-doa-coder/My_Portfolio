@@ -5,16 +5,18 @@ import profilePic from "../assets/2107004.jpg";
 
 <section
   id="home"
-  class="w-full h-[calc(100vh-4rem)] px-6 py-4 bg-background flex justify-center items-center gap-8 lg:gap-16 flex-col lg:flex-row overflow-hidden"
+  class="w-full min-h-screen px-6 py-16 bg-background flex justify-center items-center gap-8 lg:gap-16 flex-col lg:flex-row overflow-hidden"
 >
   <!-- Profile Picture -->
-  <div class="Fade_Up w-64 h-80 lg:w-72 lg:h-96 shrink-0">
+  <div class="w-64 h-80 lg:w-72 lg:h-96 shrink-0 profile-float">
     <Image
       src={profilePic}
       alt="Tawhidul Hasan Profile Picture"
       class="w-full h-full object-cover rounded-2xl border-4 border-transparent bg-gradient-vibrant shadow-2xl p-1"
       style="background-origin: border-box; background-clip: padding-box, border-box;"
       loading="eager"
+      widths={[256, 288, 512]}
+      sizes="(max-width: 768px) 256px, 288px"
     />
   </div>
 

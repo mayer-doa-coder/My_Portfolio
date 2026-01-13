@@ -20,13 +20,13 @@ import {
     JavaIcon,
     NpmIcon,
     GitIcon,
+    GithubIcon,
     FigmaIcon,
     IllustratorIcon,
     PhotoshopIcon,
     CanvaIcon,
     PreactIcon
 } from "../assets/icons";
-import { GithubIcon } from "../assets/icons";
 
 export const FrontendStack = [
     {

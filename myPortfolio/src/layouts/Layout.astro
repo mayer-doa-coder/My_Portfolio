@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import BackgroundParticles from '../components/BackgroundParticles.astro';
 
 interface Props {
   title?: string;
@@ -17,7 +18,8 @@ const { title = 'Tawhidul Hasan - Portfolio' } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="font-mono antialiased">
+	<body class="font-mono antialiased pt-[73px]">
+		<BackgroundParticles />
 		<slot />
 	</body>
 </html>

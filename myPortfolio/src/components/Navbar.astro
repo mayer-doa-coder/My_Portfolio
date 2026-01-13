@@ -1,135 +1,69 @@
 ---
 import { Download, Menu, X, Sun, Moon } from "lucide-preact";
+
+const navLinks = [
+  { href: "#about", label: "ABOUT" },
+  { href: "#education", label: "EDUCATION" },
+  { href: "#skills", label: "SKILLS" },
+  { href: "#projects", label: "PROJECTS" },
+  { href: "#achievements", label: "ACHIEVEMENTS" },
+  { href: "#contact", label: "CONTACT" },
+];
 ---
 
 <header id="header" class="fixed top-0 left-0 right-0 z-50 w-full">
-  <div
-    class="flex justify-between items-center w-full px-4 md:px-6 py-3 md:py-4 bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-  >
+  <div class="flex justify-between items-center w-full px-4 md:px-6 py-3 md:py-4 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
     <!-- Logo -->
-    <a
-      href="#home"
-      class="Fade_Down flex items-center gap-2 font-bold text-xl md:text-2xl font-mono"
-    >
+    <a href="#home" class="Fade_Down flex items-center gap-2 font-bold text-xl md:text-2xl font-mono">
       <span class="text-foreground">TAWHID</span>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav
-      class="Header_Nav hidden lg:flex gap-6 lg:gap-8 font-bold font-mono"
-    >
-      <a
-        class="Fade_Down text-sm lg:text-base nav-link"
-        href="#about">ABOUT</a
-      >
-      <a
-        class="Fade_Down text-sm lg:text-base nav-link"
-        href="#education">EDUCATION</a>
-      <a
-        class="Fade_Down text-sm lg:text-base nav-link"
-        href="#skills">SKILLS</a
-      >
-      <a
-        class="Fade_Down text-sm lg:text-base nav-link"
-        href="#projects">PROJECTS</a
-      >
-      <a
-        class="Fade_Down text-sm lg:text-base nav-link"
-        href="#achievements">ACHIEVEMENTS</a
-      >
-      <a
-        class="Fade_Down text-sm lg:text-base nav-link"
-        href="#contact">CONTACT</a
-      >
+    <nav class="hidden lg:flex gap-6 lg:gap-8 font-bold font-mono">
+      {navLinks.map((link) => (
+        <a class="Fade_Down text-sm lg:text-base nav-link" href={link.href}>
+          {link.label}
+        </a>
+      ))}
     </nav>
 
     <!-- Desktop Actions -->
     <div class="hidden lg:flex items-center gap-3 lg:gap-4">
-      <!-- Theme Toggle -->
-      <button
-        id="theme-toggle"
-        class="Fade_Down p-2 rounded-md hover:bg-muted transition-colors"
-        aria-label="Toggle theme"
-      >
+      <button id="theme-toggle" class="Fade_Down p-2 rounded-md hover:bg-muted transition-colors" aria-label="Toggle theme">
         <Sun id="sun-icon" class="w-5 h-5 dark:hidden" />
         <Moon id="moon-icon" class="w-5 h-5 hidden dark:block" />
       </button>
 
-      <!-- Resume Button -->
-      <a
-        class="Fade_Down flex items-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all text-sm lg:text-base font-bold font-mono shadow-lg"
-        href="/cv.pdf"
-        target="_blank"
-      >
+      <a class="Fade_Down flex items-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all text-sm lg:text-base font-bold font-mono shadow-lg" href="/cv.pdf" target="_blank">
         <p>Resume</p>
         <Download size={18} />
       </a>
     </div>
 
     <!-- Mobile Menu Button -->
-    <button
-      id="mobile-menu-btn"
-      class="lg:hidden p-2 rounded-md hover:bg-accent transition-colors"
-      aria-label="Toggle menu"
-    >
+    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md hover:bg-accent transition-colors" aria-label="Toggle menu">
       <Menu id="menu-icon" class="w-6 h-6" />
       <X id="close-icon" class="w-6 h-6 hidden" />
     </button>
   </div>
 
   <!-- Mobile Navigation -->
-  <div
-    id="mobile-menu"
-    class="hidden lg:hidden fixed top-[73px] left-0 right-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-40"
-  >
-    <nav
-      class="flex flex-col gap-1 p-4 font-bold font-mono"
-    >
-      <a
-        class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors"
-        href="#about">ABOUT</a
-      >
-      <a
-        class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors"
-        href="#education">EDUCATION</a
-      >
-      <a
-        class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors"
-        href="#skills">SKILLS</a
-      >
-      <a
-        class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors"
-        href="#projects">PROJECTS</a
-      >
-      <a
-        class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors"
-        href="#achievements">ACHIEVEMENTS</a
-      >
-      <a
-        class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors"
-        href="#contact">CONTACT</a
-      >
+  <div id="mobile-menu" class="hidden lg:hidden fixed top-[73px] left-0 right-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-40">
+    <nav class="flex flex-col gap-1 p-4 font-bold font-mono">
+      {navLinks.map((link) => (
+        <a class="mobile-nav-link px-4 py-3 hover:bg-accent rounded-md transition-colors" href={link.href}>
+          {link.label}
+        </a>
+      ))}
 
-      <div
-        class="flex items-center gap-3 px-4 py-3 mt-2 border-t border-border"
-      >
-        <!-- Mobile Theme Toggle -->
-        <button
-          id="mobile-theme-toggle"
-          class="p-2 rounded-md hover:bg-muted transition-colors flex-1 flex items-center justify-center gap-2 font-bold"
-          aria-label="Toggle theme"
-        >
+      <div class="flex items-center gap-3 px-4 py-3 mt-2 border-t border-border">
+        <button id="mobile-theme-toggle" class="p-2 rounded-md hover:bg-muted transition-colors flex-1 flex items-center justify-center gap-2 font-bold" aria-label="Toggle theme">
           <Sun class="w-5 h-5 dark:hidden" />
           <Moon class="w-5 h-5 hidden dark:block" />
           <span class="text-sm">Theme</span>
         </button>
 
-        <!-- Mobile Resume Button -->
-        <a
-          class="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all flex-1 font-bold shadow-lg"
-          href="/cv.pdf"
-          target="_blank"
-        >
+        <a class="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all flex-1 font-bold shadow-lg" href="/cv.pdf" target="_blank">
           <p class="text-sm">Resume</p>
           <Download size={16} />
         </a>
