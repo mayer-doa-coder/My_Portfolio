@@ -1,20 +1,11 @@
 ---
-// Subtle background particles component
+// Connected nodes graph background
 ---
 
-<div class="particles-container" aria-hidden="true">
-  {Array.from({ length: 35 }).map((_, i) => (
-    <div class="particle" style={`
-      left: ${Math.random() * 100}%;
-      top: ${Math.random() * 100}%;
-      animation-delay: ${Math.random() * 5}s;
-      animation-duration: ${15 + Math.random() * 10}s;
-    `}></div>
-  ))}
-</div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <style>
-  .particles-container {
+  #bg-canvas {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,37 +13,135 @@
     height: 100%;
     pointer-events: none;
     z-index: 0;
-    overflow: hidden;
-  }
-
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: linear-gradient(135deg, oklch(0.488 0.243 264.376), oklch(0.627 0.265 303.9));
-    border-radius: 50%;
-    opacity: 0.2;
-    animation: float-particle linear infinite;
-  }
-
-  @keyframes float-particle {
-    0% {
-      transform: translateY(0) translateX(0) scale(1);
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.2;
-    }
-    90% {
-      opacity: 0.2;
-    }
-    100% {
-      transform: translateY(-100vh) translateX(50px) scale(0.5);
-      opacity: 0;
-    }
-  }
-
-  .dark .particle {
-    opacity: 0.15;
   }
 </style>
+
+<script>
+  const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+
+  const NODE_COUNT = 55;
+  const CONNECTION_DISTANCE = 160;
+  const NODE_SPEED = 0.35;
+
+  interface Node {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    r: number;
+    opacity: number;
+  }
+
+  let nodes: Node[] = [];
+  let animId: number;
+  let W = 0;
+  let H = 0;
+
+  function isDark() {
+    return document.documentElement.classList.contains('dark');
+  }
+
+  function getColors() {
+    if (isDark()) {
+      return {
+        node: 'rgba(130, 100, 255, ',
+        edge: 'rgba(150, 120, 255, ',
+        nodeOpacity: 0.55,
+        edgeMax: 0.18,
+      };
+    }
+    return {
+      node: 'rgba(80, 60, 200, ',
+      edge: 'rgba(100, 70, 220, ',
+      nodeOpacity: 0.4,
+      edgeMax: 0.12,
+    };
+  }
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function createNodes() {
+    nodes = Array.from({ length: NODE_COUNT }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * NODE_SPEED,
+      vy: (Math.random() - 0.5) * NODE_SPEED,
+      r: 2 + Math.random() * 2.5,
+      opacity: 0.3 + Math.random() * 0.7,
+    }));
+  }
+
+  function update() {
+    for (const n of nodes) {
+      n.x += n.vx;
+      n.y += n.vy;
+
+      if (n.x < -10) n.x = W + 10;
+      else if (n.x > W + 10) n.x = -10;
+      if (n.y < -10) n.y = H + 10;
+      else if (n.y > H + 10) n.y = -10;
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const c = getColors();
+
+    // Draw edges
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i];
+        const b = nodes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < CONNECTION_DISTANCE) {
+          const alpha = (1 - dist / CONNECTION_DISTANCE) * c.edgeMax;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = c.edge + alpha + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes
+    for (const n of nodes) {
+      const alpha = n.opacity * c.nodeOpacity;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = c.node + alpha + ')';
+      ctx.fill();
+    }
+  }
+
+  function loop() {
+    update();
+    draw();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function init() {
+    resize();
+    createNodes();
+    cancelAnimationFrame(animId);
+    loop();
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+  });
+
+  // Watch for theme changes
+  const observer = new MutationObserver(() => {});
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+  init();
+</script>
