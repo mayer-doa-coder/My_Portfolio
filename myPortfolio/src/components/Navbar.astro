@@ -4,9 +4,11 @@ import { Download, Menu, X, Sun, Moon } from "lucide-preact";
 const navLinks = [
   { href: "#about", label: "ABOUT" },
   { href: "#education", label: "EDUCATION" },
+  { href: "#experience", label: "EXPERIENCE" },
   { href: "#skills", label: "SKILLS" },
   { href: "#projects", label: "PROJECTS" },
   { href: "#achievements", label: "ACHIEVEMENTS" },
+  { href: "#leadership", label: "LEADERSHIP" },
   { href: "#contact", label: "CONTACT" },
 ];
 ---
@@ -34,7 +36,7 @@ const navLinks = [
         <Moon id="moon-icon" class="w-5 h-5 hidden dark:block" />
       </button>
 
-      <a class="Fade_Down flex items-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all text-sm lg:text-base font-bold font-mono shadow-lg" href="/cv.pdf" target="_blank">
+      <a class="Fade_Down flex items-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all text-sm lg:text-base font-bold font-mono shadow-lg" href="/Tawhidul_Hasan_CV.pdf" target="_blank">
         <p>Resume</p>
         <Download size={18} />
       </a>
@@ -63,7 +65,7 @@ const navLinks = [
           <span class="text-sm">Theme</span>
         </button>
 
-        <a class="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all flex-1 font-bold shadow-lg" href="/cv.pdf" target="_blank">
+        <a class="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-vibrant text-white rounded-md hover:opacity-90 transition-all flex-1 font-bold shadow-lg" href="/Tawhidul_Hasan_CV.pdf" target="_blank">
           <p class="text-sm">Resume</p>
           <Download size={16} />
         </a>
@@ -86,9 +88,11 @@ const navLinks = [
     "#home": document.getElementById("home"),
     "#about": document.getElementById("about"),
     "#education": document.getElementById("education"),
+    "#experience": document.getElementById("experience"),
     "#skills": document.getElementById("skills"),
     "#projects": document.getElementById("projects"),
     "#achievements": document.getElementById("achievements"),
+    "#leadership": document.getElementById("leadership"),
     "#contact": document.getElementById("contact"),
   };
 

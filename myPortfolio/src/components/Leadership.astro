@@ -1,73 +1,67 @@
 ---
 import SectionTitle from "./SectionTitle.astro";
 
-const educationData = [
+const leadershipData = [
   {
-    degree: "B.Sc. in Engineering, Computer Science and Engineering",
-    institution: "Khulna University of Engineering & Technology (KUET)",
-    address: "Fulbarigate, Khulna, Bangladesh",
-    period: "Jan 2023 - Present",
+    role: "Publication Secretary",
+    org: "CYBORG, Cyber Gaming Club of KUET",
+    period: "Mar 2023 - Present",
     details: [
-      "CGPA: 3.72 / 4.00",
-      "Coursework: Data Structures, Algorithms, OOP, Database Systems, Compiler Design, Software Engineering, Numerical Methods, Machine Learning",
-      "Actively involved in programming contests and project development",
+      "Lead event organization, communications, and execution for campus-wide competitive gaming events",
+      "Coordinate participants and promotional material",
     ],
   },
   {
-    degree: "Higher Secondary School Certificate (HSC)",
-    institution: "Saint Joseph Higher Secondary School",
-    address: "Dhaka, Bangladesh",
-    period: "Jul 2019 - Dec 2021",
+    role: "Member",
+    org: "Organization of KUET Sports (OKS)",
+    period: "Mar 2023 - Jan 2024",
     details: [
-      "Science background with strong emphasis on Mathematics and Physics",
+      "Planned and coordinated university-level events",
+      "Managed logistics and participant communication",
     ],
   },
   {
-    degree: "Secondary School Certificate (SSC)",
-    institution: "Mirpur Cantonment Public School & College",
-    address: "Mirpur-12, Dhaka, Bangladesh",
-    period: "2019",
-    details: ["Built strong academic fundamentals and problem-solving skills"],
+    role: "Organizing Secretary",
+    org: "Josephite Math Club",
+    period: "Oct 2019 - Sep 2022",
+    details: [
+      "Coordinated mathematics competitions and events",
+      "Managed scheduling, communication, and on-day execution",
+    ],
   },
 ];
 ---
 
 <section
-  id="education"
+  id="leadership"
   class="w-full min-h-screen px-6 py-4 pt-14 bg-background"
 >
-  <SectionTitle title="Education" />
+  <SectionTitle title="Leadership" />
 
   <div class="flex_center w-full py-19">
     <div
       class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
       {
-        educationData.map((edu) => (
+        leadershipData.map((item) => (
           <div class="Fade_Up group relative h-full">
-            {/* Content Card */}
             <div class="relative bg-card/30 hover:bg-card/50 border border-border/50 hover:border-transparent rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_20px_rgba(123,97,255,0.3)] font-mono backdrop-blur-sm h-full flex flex-col before:absolute before:inset-0 before:rounded-xl before:p-0.5 before:bg-gradient-vibrant before:opacity-0 hover:before:opacity-100 before:transition-opacity before:-z-10">
-              {/* Institution & Period Container */}
               <div class="space-y-2 mb-4">
-                <p class="text-sm sm:text-base font-semibold text-foreground/90">
-                  {edu.institution}
+                <p class="text-base sm:text-lg font-bold text-gradient-full">
+                  {item.role}
                 </p>
-
+                <p class="text-sm sm:text-base font-semibold text-foreground/90">
+                  {item.org}
+                </p>
                 <div class="flex items-center gap-2 text-xs sm:text-sm text-foreground/60">
-                  <span class="font-medium">{edu.address}</span>
-                </div>
-
-                <div class="flex items-center gap-2 text-xs sm:text-sm text-foreground/60">
-                  <span class="font-medium">{edu.period}</span>
+                  <span class="font-medium">{item.period}</span>
                 </div>
               </div>
 
-              {/* Divider */}
               <div class="h-px bg-linear-to-r from-transparent via-primary/20 to-transparent mb-4" />
 
-              {/* Details List */}
               <ul class="space-y-2 grow">
-                {edu.details.map((detail) => (
+                {item.details.map((detail) => (
                   <li class="text-xs sm:text-sm text-foreground/75 flex items-start gap-2 leading-relaxed">
                     <span class="text-gradient-full mt-1 shrink-0 font-bold">
                       ›
@@ -77,7 +71,6 @@ const educationData = [
                 ))}
               </ul>
 
-              {/* Decorative Corner Accent */}
               <div class="absolute top-0 right-0 w-16 h-16 bg-linear-to-br from-primary/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </div>

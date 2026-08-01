@@ -15,6 +15,7 @@ export { default as ReactQueryIcon } from "./reactquery.svg"
 export { default as PreactIcon } from "./preactjs.svg"
 export { default as GSAPIcon } from "./gsap.svg"
 export { default as FramerMotionIcon } from "./framermotion.svg"
+export { default as ThreeJsIcon } from "./threejs.svg"
 
 // Backend-Stack
 export { default as NodeIcon } from "./nodejs.svg"
@@ -29,11 +30,16 @@ export { default as GdriveIcon } from "./gdrive.svg"
 export { default as NextAuthIcon } from "./nextauth.svg"
 export { default as EdgeStoreIcon } from "./edgestore.webp"
 export { default as OracleIcon } from "./oracle.svg"
+export { default as PostgresIcon } from "./postgresql.svg"
+export { default as FastApiIcon } from "./fastapi.svg"
+export { default as SupabaseIcon } from "./supabase.svg"
 
 // Programming-Stack
 export { default as PythonIcon } from "./python.svg"
 export { default as CppIcon } from "./cpp.svg"
+export { default as CIcon } from "./clang.svg"
 export { default as JavaIcon } from "./java.svg"
+export { default as SwiftIcon } from "./swift.svg"
 export { default as RIcon } from "./Rlogo.svg"
 
 // Tools-Stack
