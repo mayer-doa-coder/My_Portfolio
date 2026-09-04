@@ -29,7 +29,7 @@ const { ProjectsList } = await import("../lib/ProjectsList");
                                 title={`View ${project.Name} on GitHub`}
                             >
                                 <Image
-                                    class="Card_Image bg-cover transition-opacity w-full"
+                                    class="Card_Image aspect-video w-full object-cover transition-opacity"
                                     style={{
                                         borderRadius: "0.4em 0.4em 0 100%",
                                     }}
@@ -40,11 +40,13 @@ const { ProjectsList } = await import("../lib/ProjectsList");
                                     loading="lazy"
                                 />
                                 <Image
-                                    class="absolute left-6 bottom-6"
+                                    class:list={[
+                                        "absolute bottom-5 left-5 block h-auto max-h-20 max-w-[11.5rem] w-auto object-contain drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]",
+                                        project.LogoBlendMode === "multiply" && "mix-blend-multiply",
+                                    ]}
                                     src={project.Logo}
                                     alt={`Project_Logo_${project.Name}`}
                                     width={project.LogoSize}
-                                    height={project.LogoSize}
                                     loading="lazy"
                                 />
                             </a>

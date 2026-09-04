@@ -39,13 +39,8 @@ import {
 import {
   cinemaHomepage,
   cinemaIcon,
-  movieLogo,
-  numericalIcon,
-  numericalLogo,
-  oopIcon,
   parabounceIcon,
   parabounceLogo,
-  policeIcon,
   readifyIcon,
   readifyLogo,
   agrisenseBanner,
@@ -56,20 +51,10 @@ import {
   whatsappSummarizerLogo,
   slidecommanderBanner,
   slidecommanderLogo,
-  hisabBanner,
-  hisabLogo,
   murderInKuetBanner,
   murderInKuetLogo,
-  arcaneBanner,
-  arcaneLogo,
-  smartHelmetBanner,
-  smartHelmetLogo,
-  edumatchBanner,
-  edumatchLogo,
-  wildBeyondBanner,
-  wildBeyondLogo,
-  meowtropolisBanner,
-  meowtropolisLogo,
+  smartCarBanner,
+  smartCarLogo,
 } from "../assets/images";
 
 type ProjectsListType = {
@@ -98,6 +83,7 @@ type ProjectsListType = {
   }[];
   hideProject: boolean;
   LogoSize: number;
+  LogoBlendMode?: "multiply";
   versions: {
     title: string;
     version: string;
@@ -442,50 +428,6 @@ export const ProjectsList: ProjectsListType = [
     versions: [],
   },
   {
-    Name: "Police Department Management System",
-    ShortDesc:
-      "Comprehensive console-based police management system developed using object-oriented C++ principles. Features efficient record handling, case management, personnel tracking, and administrative operations with robust data validation and integrity controls.",
-    Desc: "The Police Department Management System is a comprehensive console-based application developed using object-oriented programming principles. This system provides efficient tools for managing police department records, operations, and administrative tasks. Built with a focus on data integrity and operational efficiency, it demonstrates strong OOP concepts including encapsulation, inheritance, and polymorphism while handling complex departmental workflows.",
-    Logo: policeIcon,
-    Shot: oopIcon,
-    Mockup: oopIcon,
-    Theme: "#2C3E50",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/OOP-Project",
-    Source: "https://github.com/mayer-doa-coder/OOP-Project",
-    Tech: [TechInfo.Cpp],
-    features: [
-      {
-        title: "Record Management",
-        description:
-          "Efficiently manage police officer records, case files, and departmental data with structured data handling.",
-      },
-      {
-        title: "Object-Oriented Design",
-        description:
-          "Built using OOP principles including classes, inheritance, encapsulation, and polymorphism for maintainable code.",
-      },
-      {
-        title: "Console Interface",
-        description:
-          "Terminal-based user interface providing straightforward access to all system functions and operations.",
-      },
-      {
-        title: "Operational Efficiency",
-        description:
-          "Streamlined workflows for handling routine police department operations and administrative tasks.",
-      },
-      {
-        title: "Data Integrity",
-        description:
-          "Robust data validation and error handling to ensure accurate and reliable record keeping.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 65,
-    versions: [],
-  },
-  {
     Name: "Cinema Paradiso",
     ShortDesc:
       "A comprehensive movie and television database web application built with Laravel and modern web technologies. Cinema Paradiso provides users with an extensive platform to discover, track, and discuss movies and TV shows while connecting with a community of film enthusiasts.",
@@ -537,88 +479,6 @@ export const ProjectsList: ProjectsListType = [
     versions: [],
   },
   {
-    Name: "Numerical Method Project",
-    ShortDesc:
-      "Advanced numerical computation project implementing multiple mathematical algorithms in C++. Includes Newton-Raphson, Simpson's rule, Runge-Kutta methods, and more. Emphasizes computational precision, algorithmic optimization, and efficient solving of complex analytical problems.",
-    Desc: "The Numerical Method Project showcases the application of advanced numerical techniques to solve complex mathematical problems that are difficult or impossible to solve analytically. This project demonstrates proficiency in implementing numerical algorithms with a strong focus on computational accuracy, algorithmic efficiency, and optimization. It covers various numerical methods including root finding, integration, differentiation, and solving differential equations.",
-    Logo: numericalLogo,
-    Shot: numericalIcon,
-    Mockup: numericalIcon,
-    Theme: "#27AE60",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/Numerical-Method-Project",
-    Source: "https://github.com/mayer-doa-coder/Numerical-Method-Project",
-    Tech: [TechInfo.Cpp],
-    features: [
-      {
-        title: "Multiple Numerical Methods",
-        description:
-          "Implementation of various numerical techniques including Newton-Raphson, Simpson's rule, Runge-Kutta, and more.",
-      },
-      {
-        title: "Computational Accuracy",
-        description:
-          "Precision-focused algorithms that minimize numerical errors and provide reliable results for complex calculations.",
-      },
-      {
-        title: "Algorithmic Efficiency",
-        description:
-          "Optimized implementations that balance accuracy with computational performance for practical applications.",
-      },
-      {
-        title: "Complex Problem Solving",
-        description:
-          "Tackle mathematically challenging problems that require numerical approximation rather than analytical solutions.",
-      },
-      {
-        title: "Educational Tool",
-        description:
-          "Well-documented code and examples that serve as learning resources for understanding numerical methods.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 50,
-    versions: [],
-  },
-  {
-    Name: "Movie Database Management",
-    ShortDesc:"A movie database management system with real-time SQL query monitoring. Built with PHP, MySQL, and JavaScript. Implements all SQL operation coverage including advanced concepts, views, set operations, and complex queries. Features an intuitive web interface for seamless interaction and monitoring.",
-    Desc: "Movie Database Management is a PHP and MySQL application built to explore the full breadth of SQL through a real interface. It covers joins, subqueries, views, set operations, and aggregate queries, with a real-time monitor that displays the exact SQL statements running behind each user action, making the database layer transparent rather than hidden.",
-    Logo: movieLogo,
-    Shot: movieLogo,
-    Mockup: movieLogo,
-    Theme: "#27AE60",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/Movie-Database",
-    Source: "https://github.com/mayer-doa-coder/Movie-Database",
-    Tech: [TechInfo.PHP, TechInfo.MySQL, TechInfo.JavaScript, TechInfo.HTML, TechInfo.CSS],
-    features: [
-      {
-        title: "Full SQL Coverage",
-        description:
-          "Demonstrates joins, subqueries, views, set operations, and aggregate queries across a real movie dataset.",
-      },
-      {
-        title: "Real-Time Query Monitoring",
-        description:
-          "Displays the live SQL statements executed behind each interaction, exposing the database layer for learning and debugging.",
-      },
-      {
-        title: "Intuitive Web Interface",
-        description:
-          "A clean PHP-driven interface for browsing and managing movie records without needing direct database access.",
-      },
-      {
-        title: "Advanced Concepts",
-        description:
-          "Covers advanced relational database concepts beyond basic CRUD, built for demonstrating deeper SQL proficiency.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 50,
-    versions: [],
-  },
-  {
     Name: "AgriSense AI",
     ShortDesc:
       "Autonomous agentic advisory system for smallholder farmers, pairing a conversational agent that builds a costed season plan with a scheduled monitor agent that re-checks live forecasts and market data to keep plans accurate automatically.",
@@ -654,7 +514,7 @@ export const ProjectsList: ProjectsListType = [
       },
     ],
     hideProject: false,
-    LogoSize: 64,
+    LogoSize: 180,
     versions: [],
   },
   {
@@ -693,7 +553,7 @@ export const ProjectsList: ProjectsListType = [
       },
     ],
     hideProject: false,
-    LogoSize: 64,
+    LogoSize: 180,
     versions: [],
   },
   {
@@ -732,7 +592,7 @@ export const ProjectsList: ProjectsListType = [
       },
     ],
     hideProject: false,
-    LogoSize: 64,
+    LogoSize: 180,
     versions: [],
   },
   {
@@ -771,46 +631,7 @@ export const ProjectsList: ProjectsListType = [
       },
     ],
     hideProject: false,
-    LogoSize: 64,
-    versions: [],
-  },
-  {
-    Name: "Hisab",
-    ShortDesc:
-      "Mobile-first smart retail assistant for small general stores in Bangladesh, digitizing inventory, sales, and customer credit (baki) tracking with Bengali voice input.",
-    Desc: "Hisab is a mobile-first smart retail assistant designed for small দোকান (general stores) in Bangladesh. It helps shop owners digitize daily operations such as inventory management and customer credit (baki) tracking through a simple, familiar interface, with Bengali voice input, offline synchronization, and AI-generated business insights built for low-connectivity environments.",
-    Logo: hisabLogo,
-    Shot: hisabBanner,
-    Mockup: hisabBanner,
-    Theme: "#B23FD1",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/Hisab",
-    Source: "https://github.com/mayer-doa-coder/Hisab",
-    Tech: [TechInfo.JavaScript, TechInfo.Firebase],
-    features: [
-      {
-        title: "Inventory & Sales Tracking",
-        description:
-          "Digitizes day-to-day retail operations for small general stores in a few taps.",
-      },
-      {
-        title: "Customer Credit (Baki) Ledger",
-        description:
-          "Tracks customer credit balances in a simple, familiar format shop owners already understand.",
-      },
-      {
-        title: "Bengali Voice Input",
-        description:
-          "Enables hands-free data entry in Bengali for faster day-to-day use.",
-      },
-      {
-        title: "Offline Synchronization",
-        description:
-          "Works reliably in low-connectivity environments and syncs automatically once back online.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 64,
+    LogoSize: 180,
     versions: [],
   },
   {
@@ -849,56 +670,17 @@ export const ProjectsList: ProjectsListType = [
       },
     ],
     hideProject: false,
-    LogoSize: 64,
+    LogoSize: 180,
     versions: [],
   },
   {
-    Name: "Arcane (WizardLang)",
+    Name: "Smart Car Parking System",
     ShortDesc:
-      "A wizard-themed programming language and compiler built with Flex and Bison, covering lexical analysis, tokenization, parsing, and syntax-directed translation.",
-    Desc: "Arcane (WizardLang) is a wizard-themed programming language designed and implemented from the ground up, covering lexical analysis, tokenization, parsing, and syntax-directed translation. Built in C using Flex for lexing and Bison for grammar and parsing, the project applies core compiler construction principles end-to-end, from a custom spell-based syntax down to translation logic.",
-    Logo: arcaneLogo,
-    Shot: arcaneBanner,
-    Mockup: arcaneBanner,
-    Theme: "#5B4FE0",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/Arcane",
-    Source: "https://github.com/mayer-doa-coder/Arcane",
-    Tech: [TechInfo.C],
-    features: [
-      {
-        title: "Lexical Analysis & Tokenization",
-        description:
-          "A custom lexer built with Flex tokenizes the wizard-themed spell syntax.",
-      },
-      {
-        title: "Grammar & Parsing",
-        description:
-          "Syntax analysis and grammar construction implemented with Bison.",
-      },
-      {
-        title: "Syntax-Directed Translation",
-        description:
-          "Applies core compiler construction principles end-to-end, from parsing to translation.",
-      },
-      {
-        title: "Compiler Fundamentals",
-        description:
-          "A hands-on implementation of classic compiler design theory, written in C.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 64,
-    versions: [],
-  },
-  {
-    Name: "Smart Helmet System",
-    ShortDesc:
-      "IoT road-safety device pairing an alcohol detection sensor with relay-based engine control, blocking ignition when the rider is unhelmeted or intoxicated. Awarded First Place at the HACK Project Showcasing competition.",
-    Desc: "The Smart Helmet System is a team-led embedded IoT device that pairs an alcohol detection sensor with relay-based engine control on an ESP-32. The system blocks the vehicle's ignition if the rider isn't wearing the helmet or if alcohol consumption is detected, enhancing road safety through embedded hardware and real-time sensing. The project was awarded First Place at the HACK Project Showcasing competition.",
-    Logo: smartHelmetLogo,
-    Shot: smartHelmetBanner,
-    Mockup: smartHelmetBanner,
+      "Embedded smart-parking system that detects available vehicle bays in real time and displays live parking capacity through an LCD interface.",
+    Desc: "The Smart Car Parking System is an embedded parking-management prototype that uses live sensors to detect vehicle occupancy across individual bays. It tracks available spaces in real time and presents the current capacity through an LCD display, making parking availability immediately visible to drivers and operators.",
+    Logo: smartCarLogo,
+    Shot: smartCarBanner,
+    Mockup: smartCarBanner,
     Theme: "#B23FD1",
     Status: "completed",
     Link: "#",
@@ -906,145 +688,29 @@ export const ProjectsList: ProjectsListType = [
     Tech: [TechInfo.C],
     features: [
       {
-        title: "Alcohol Detection",
+        title: "Real-Time Space Detection",
         description:
-          "Sensor-based detection prevents an intoxicated rider from starting the engine.",
+          "Monitors each parking bay to identify whether a vehicle space is available or occupied.",
       },
       {
-        title: "Helmet Detection",
+        title: "Live Capacity Display",
         description:
-          "Blocks ignition automatically when the rider isn't wearing a helmet.",
+          "Shows the number of free parking spaces through an easy-to-read LCD interface.",
       },
       {
-        title: "Relay-Based Engine Control",
+        title: "Embedded Sensor Control",
         description:
-          "A hardware relay gates ignition directly based on live sensor readings.",
+          "Coordinates sensors and display hardware through an embedded controller for responsive updates.",
       },
       {
-        title: "Award-Winning",
+        title: "Multi-Bay Monitoring",
         description:
-          "Awarded First Place at the HACK Project Showcasing competition.",
+          "Supports monitoring several parking spaces from one central control unit.",
       },
     ],
     hideProject: false,
-    LogoSize: 64,
-    versions: [],
-  },
-  {
-    Name: "EduMatch",
-    ShortDesc:
-      "AI-driven thesis and internship ecosystem connecting students, supervisors, and alumni with role-based dashboards, AI skill-gap analysis, and milestone tracking.",
-    Desc: "EduMatch is an AI-driven thesis and internship ecosystem built to connect students with supervisors, internship opportunities, and alumni mentorship in one place. Role-based dashboards for students, supervisors, alumni, and admins keep everyone focused on what matters, while AI-driven skill-gap analysis highlights where a student's profile falls short of an opportunity's requirements, and built-in messaging and milestone submission keep supervised progress on track.",
-    Logo: edumatchLogo,
-    Shot: edumatchBanner,
-    Mockup: edumatchBanner,
-    Theme: "#E8484F",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/EduMatch",
-    Source: "https://github.com/mayer-doa-coder/EduMatch",
-    Tech: [TechInfo.TypeScript, TechInfo.React, TechInfo.PHP, TechInfo.MySQL],
-    features: [
-      {
-        title: "Role-Based Dashboards",
-        description:
-          "Dedicated dashboards for students, supervisors, alumni, and admins.",
-      },
-      {
-        title: "Internship & Thesis Matching",
-        description:
-          "Connects students with supervisors and internship postings suited to their profile.",
-      },
-      {
-        title: "AI Skill-Gap Analysis",
-        description:
-          "Highlights where a student's skills fall short of an opportunity's requirements.",
-      },
-      {
-        title: "Messaging & Milestones",
-        description:
-          "In-app messaging and milestone submission keep supervised progress on track.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 64,
-    versions: [],
-  },
-  {
-    Name: "Wild Beyond",
-    ShortDesc:
-      "A platform celebrating wildlife through field blogs and stories, with a curated gear catalog for photographers, observers, and outdoor adventurers, built on a Spring Boot backend.",
-    Desc: "Wild Beyond is a space where nature speaks and explorers prepare. It celebrates life beyond our own through wildlife stories and field blogs, alongside a curated catalog of gear for photographers, observers, and outdoor adventurers. The backend is built on Java with Spring Boot and Maven, containerized with Docker, and backed by a documented CI/CD pipeline and Postman-tested REST API.",
-    Logo: wildBeyondLogo,
-    Shot: wildBeyondBanner,
-    Mockup: wildBeyondBanner,
-    Theme: "#5B4FE0",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/Wild-Beyond",
-    Source: "https://github.com/mayer-doa-coder/Wild-Beyond",
-    Tech: [TechInfo.Java, TechInfo.HTML],
-    features: [
-      {
-        title: "Wildlife Field Blogs",
-        description:
-          "Publish and browse nature and wildlife stories from the field.",
-      },
-      {
-        title: "Curated Gear Catalog",
-        description:
-          "Browse gear picks for photographers, observers, and outdoor adventurers.",
-      },
-      {
-        title: "Spring Boot Backend",
-        description:
-          "Built on Java with Maven, containerized with Docker, and backed by a documented CI/CD pipeline.",
-      },
-      {
-        title: "REST API",
-        description:
-          "A Postman-tested API layer powers the platform's data.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 64,
-    versions: [],
-  },
-  {
-    Name: "Meowtropolis",
-    ShortDesc:
-      "An all-in-one native iOS pet care companion offering grooming services, veterinary support, and pet supplies, built with Swift and Firebase.",
-    Desc: "Meowtropolis is an all-in-one pet care companion built as a native iOS app, offering grooming services, veterinary support, pet supplies, and trusted care solutions to keep pets happy and healthy. It's built natively with Swift and SwiftUI, backed by Firebase for realtime data, authentication, and cloud services.",
-    Logo: meowtropolisLogo,
-    Shot: meowtropolisBanner,
-    Mockup: meowtropolisBanner,
-    Theme: "#B23FD1",
-    Status: "completed",
-    Link: "https://github.com/mayer-doa-coder/Meowtropolis",
-    Source: "https://github.com/mayer-doa-coder/Meowtropolis",
-    Tech: [TechInfo.Swift, TechInfo.Firebase],
-    features: [
-      {
-        title: "Pet Care Services",
-        description:
-          "Grooming, veterinary support, and pet supplies brought together in one app.",
-      },
-      {
-        title: "Native iOS Experience",
-        description:
-          "Built natively with Swift and SwiftUI for a smooth, platform-native feel.",
-      },
-      {
-        title: "Firebase Backend",
-        description:
-          "Realtime data, authentication, and cloud services powered by Firebase.",
-      },
-      {
-        title: "Trusted Care Network",
-        description:
-          "Connects pet owners with vetted care providers and services.",
-      },
-    ],
-    hideProject: false,
-    LogoSize: 64,
+    LogoSize: 180,
+    LogoBlendMode: "multiply",
     versions: [],
   },
 ];
