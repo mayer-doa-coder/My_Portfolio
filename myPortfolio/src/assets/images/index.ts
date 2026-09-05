@@ -6,8 +6,8 @@ export { default as readifyLogo } from "./readifyappLogo.png"
 export { default as cinemaHomepage } from "./homepage.png"
 
 // Project banners and logos
-export { default as agrisenseBanner } from "./greenleaf.jpeg"
-export { default as agrisenseLogo } from "./greenleaf-logo.png"
+export { default as greenleafBanner } from "./greenleaf.jpeg"
+export { default as greenleafLogo } from "./greenleaf-logo.png"
 export { default as signolightBanner } from "./signolight.png"
 export { default as signolightLogo } from "./signolight-logo.png"
 export { default as whatsappSummarizerBanner } from "./wp-summaizer.png"

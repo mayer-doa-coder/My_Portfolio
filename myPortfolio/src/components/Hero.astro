@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import profilePic from "../assets/2107004.jpg";
+import profilePicUrl from "../assets/2107004.jpg?url";
 ---
 
 <section
@@ -8,15 +7,15 @@ import profilePic from "../assets/2107004.jpg";
   class="w-full min-h-screen px-6 py-16 bg-background flex justify-center items-center gap-8 lg:gap-16 flex-col lg:flex-row overflow-hidden"
 >
   <!-- Profile Picture -->
-  <div class="w-64 h-80 lg:w-72 lg:h-96 shrink-0 profile-float">
-    <Image
-      src={profilePic}
+  <div class="w-64 h-80 lg:w-72 lg:h-96 shrink-0">
+    <img
+      src={profilePicUrl}
       alt="Tawhidul Hasan Profile Picture"
       class="w-full h-full object-cover rounded-2xl shadow-2xl"
       loading="eager"
-      widths={[256, 288, 576, 768]}
-      sizes="(max-width: 768px) 256px, 288px"
-      quality={95}
+      decoding="async"
+      width="1991"
+      height="2015"
     />
   </div>
 

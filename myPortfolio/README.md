@@ -207,7 +207,7 @@ This portfolio is intentionally data-driven — most updates don't require touch
 - **Change the resume** → replace `public/Tawhidul_Hasan_CV.pdf` (keep the filename, or update the two `href`s in `Navbar.astro`).
 - **Retheme colors** → all theme tokens (light/dark) and the signature gradient utilities live at the top of `src/styles/global.css` as CSS custom properties in `oklch()`.
 
-> **Note:** Projects added most recently (AgriSense AI, SignOLight, SlideCommander, etc.) currently render generated placeholder banners/logos under `src/assets/images/placeholders/`. Swap in real screenshots by replacing those files (or repointing the relevant `Shot`/`Logo`/`Mockup` import in `ProjectsList.ts`) once available.
+> **Note:** Project banners and logos are imported through `src/assets/images/index.ts`. Update an entry's `Shot`, `Logo`, or `Mockup` import in `ProjectsList.ts` when adding new artwork.
 
 ## Deployment
 
