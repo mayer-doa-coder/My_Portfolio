@@ -1,0 +1,245 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Timeline from "../components/Timeline.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import portrait from "../assets/2107004.jpg";
+import {
+  Profile,
+  Socials,
+  Stats,
+  Standings,
+  Experience,
+  Education,
+  Skills,
+} from "../lib/content";
+
+const podium = Standings.filter((s) => s.place !== null).length;
+---
+
+<Layout
+  title="About — Tawhidul Hasan"
+  description="Tawhidul Hasan: CSE undergraduate at KUET, competitive programmer and AI hackathon winner. Standings, experience, education and contact."
+>
+  <main id="main" class="px-5 md:px-8">
+    <!-- Intro -->
+    <section class="pt-36 md:pt-48 pb-24 md:pb-36" aria-labelledby="intro-title">
+      <p class="label mb-6"><span class="text-signal">00</span> — Profile</p>
+      <h1 id="intro-title" class="display text-[clamp(3.2rem,12vw,13rem)]" data-split>
+        Problem<br />solver.
+      </h1>
+
+      <div class="mt-16 md:mt-24 grid gap-12 md:grid-cols-12 md:gap-8">
+        <div class="md:col-span-4 md:col-start-1">
+          <!-- Original colours, full image, served at up to 2x the displayed size. -->
+          <Image
+            src={portrait}
+            alt="Portrait of Tawhidul Hasan"
+            widths={[480, 768, 1200, portrait.width]}
+            sizes="(min-width: 768px) 384px, 90vw"
+            quality={90}
+            class="w-full max-w-sm h-auto"
+            loading="eager"
+            data-reveal
+          />
+          <p class="label mt-4">{Profile.location}</p>
+        </div>
+
+        <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg md:text-xl leading-relaxed">
+          <p class="text-paper font-display text-2xl md:text-4xl leading-[1.15] font-medium" data-reveal>
+            {Profile.role}.
+          </p>
+          {Profile.bio.map((p) => <p class="text-paper/75" data-reveal>{p}</p>)}
+          <div class="pt-4 flex flex-wrap gap-x-8 gap-y-3" data-reveal>
+            <a class="link-line text-signal" href={Profile.resume} target="_blank" rel="noreferrer">Download résumé ↗</a>
+            <a class="link-line" href="#contact">Get in touch ↓</a>
+          </div>
+        </div>
+      </div>
+
+      <dl class="mt-24 md:mt-36 grid grid-cols-2 md:grid-cols-4 border-t border-faint">
+        {
+          Stats.map((s) => (
+            <div class="py-8 pr-4 border-b border-faint md:border-b-0" data-reveal>
+              <dd class="font-display font-semibold text-[clamp(2.8rem,6vw,5.5rem)] leading-none" data-count>
+                {s.value}
+              </dd>
+              <dt class="label mt-3 normal-case tracking-normal text-sm">{s.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <!-- Standings: achievements as a contest scoreboard -->
+    <section class="py-24 md:py-36" aria-labelledby="standings">
+      <SectionHead index="01" label="Achievements" title="Standings" id="standings" />
+      <p class="max-w-2xl text-paper/75 text-lg mb-12" data-reveal>
+        Every contest I've placed in, scored like a programming contest scoreboard. A filled
+        balloon is a podium finish ({podium} of them); an empty one is a finalist entry or honour.
+      </p>
+
+      <div class="overflow-hidden" data-reveal>
+        <table class="w-full text-left border-collapse">
+          <caption class="sr-only">Contest results, best placements first</caption>
+          <thead>
+            <tr class="label border-b border-faint">
+              <th scope="col" class="py-3 pr-4 font-normal w-20 md:w-28">Rank</th>
+              <th scope="col" class="py-3 pr-4 font-normal">Contest</th>
+              <th scope="col" class="py-3 pr-4 font-normal hidden md:table-cell w-44">Result</th>
+              <th scope="col" class="py-3 font-normal hidden lg:table-cell w-32 text-right">Track</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              Standings.map((s) => (
+                <tr class="group border-b border-faint align-top transition-colors hover:bg-ink-2">
+                  <td class="py-6 pr-4">
+                    <span class="flex items-center gap-3 font-mono text-lg text-dim">
+                      <span class:list={["balloon text-dim", s.place === null && "is-empty"]} aria-hidden="true" />
+                      <span class:list={[s.place !== null && "text-signal"]}>{s.place ?? "—"}</span>
+                    </span>
+                  </td>
+                  <td class="py-6 pr-4">
+                    <p class="font-display font-semibold text-xl md:text-2xl leading-tight transition-colors group-hover:text-signal">
+                      {s.contest}
+                    </p>
+                    <p class="font-mono text-xs uppercase tracking-wider text-signal mt-2 md:hidden">{s.result}</p>
+                    <p class="text-dim mt-2 max-w-2xl leading-relaxed">{s.detail}</p>
+                  </td>
+                  <td class="py-6 pr-4 hidden md:table-cell font-mono text-sm uppercase tracking-wide">
+                    <span class:list={[s.place !== null ? "text-signal" : "text-paper/80"]}>{s.result}</span>
+                  </td>
+                  <td class="py-6 hidden lg:table-cell label text-right">{s.kind}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="py-24 md:py-36" aria-labelledby="experience">
+      <SectionHead index="02" label="Work" title="Experience" id="experience" />
+      <Timeline items={Experience} />
+    </section>
+
+    <section class="py-24 md:py-36" aria-labelledby="education">
+      <SectionHead index="03" label="Study" title="Education" id="education" />
+      <Timeline items={Education} />
+    </section>
+
+    <section class="py-24 md:py-36" aria-labelledby="skills">
+      <SectionHead index="04" label="Toolbox" title="Skills" id="skills" />
+      <div class="space-y-7 border-t border-faint pt-8">
+        {
+          Skills.map((g) => (
+            <div class="grid gap-3 md:grid-cols-12 md:gap-8" data-reveal>
+              <h3 class="label md:col-span-3 pt-2">{g.group}</h3>
+              <ul class="md:col-span-9 flex flex-wrap gap-1.5">
+                {g.items.map((s) => (
+                  <li class="group flex flex-col items-center justify-center gap-2 w-[5.75rem] h-[5.75rem] border border-faint transition-colors duration-300 hover:border-signal hover:bg-ink-2">
+                    <Image
+                      src={s.icon}
+                      alt=""
+                      width={40}
+                      height={40}
+                      class="w-9 h-9 object-contain transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <span class="font-mono text-[0.68rem] uppercase tracking-wide text-paper/80 text-center leading-tight px-1">
+                      {s.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 md:py-40" aria-labelledby="contact-title">
+      <p class="label mb-6"><span class="text-signal">05</span> — Contact</p>
+      <h2 id="contact-title" class="display text-[clamp(3rem,11vw,12rem)]" data-split>
+        Let's<br />talk.
+      </h2>
+
+      <div class="mt-14 md:mt-20 grid gap-16 md:grid-cols-12 md:gap-8">
+        <div class="md:col-span-5 space-y-8" data-reveal>
+          <p class="text-lg text-paper/75 leading-relaxed">
+            Open to full-time and part-time roles, internships, freelance work, hackathon teams or just a
+            good conversation about algorithms.
+          </p>
+          <a
+            href={`mailto:${Profile.email}`}
+            class="link-line inline-block font-display font-semibold text-2xl md:text-4xl break-all hover:text-signal transition-colors"
+          >
+            {Profile.email}
+          </a>
+          <ul class="flex flex-wrap gap-x-6 gap-y-2">
+            {
+              Socials.map((s) => (
+                <li>
+                  <a class="link-line text-dim hover:text-paper" href={s.href} target="_blank" rel="noreferrer">
+                    {s.label} ↗
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <form
+          action="https://formspree.io/f/xyzdeyye"
+          method="POST"
+          class="md:col-span-6 md:col-start-7 space-y-8"
+          data-reveal
+        >
+          {
+            [
+              { id: "name", label: "Name", type: "text" as const, auto: "name" },
+              { id: "email", label: "Email", type: "email" as const, auto: "email" },
+            ].map((f) => (
+              <div>
+                <label for={f.id} class="label block mb-2">{f.label}</label>
+                <input
+                  id={f.id}
+                  name={f.id}
+                  type={f.type}
+                  autocomplete={f.auto}
+                  required
+                  class="w-full bg-transparent border-b border-faint py-3 text-lg outline-none transition-colors focus:border-signal"
+                />
+              </div>
+            ))
+          }
+          <div>
+            <label for="message" class="label block mb-2">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              required
+              class="w-full bg-transparent border-b border-faint py-3 text-lg outline-none resize-none transition-colors focus:border-signal"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="group inline-flex items-center gap-4 bg-signal text-ink font-mono uppercase tracking-wider text-sm px-7 min-h-12 transition-transform active:scale-[0.97]"
+          >
+            Submit solution
+            <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<script>
+  import "../scripts/scroll";
+</script>

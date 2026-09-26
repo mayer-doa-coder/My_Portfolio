@@ -1,0 +1,82 @@
+---
+import { Profile } from "../lib/content";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const links = [
+  { href: "/", label: "Work", active: path === "/" || path.startsWith("/work") },
+  { href: "/about", label: "About", active: path === "/about" },
+  { href: Profile.resume, label: "Resume", external: true },
+];
+---
+
+<header
+  class="site-header fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 pt-5 pb-10 md:px-8 md:pt-7 pointer-events-none"
+  data-site-header
+>
+  <a
+    href="/"
+    class="pointer-events-auto font-display text-base md:text-lg font-medium tracking-wide leading-none"
+  >
+    Tawhidul Hasan
+    <span class="block label mt-1.5 normal-case tracking-normal">KUET · CSE</span>
+  </a>
+
+  <nav aria-label="Main" class="pointer-events-auto">
+    <ul class="flex gap-5 md:gap-8 text-sm md:text-base">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class:list={[
+                "link-line pb-0.5 transition-colors",
+                l.active ? "text-paper" : "text-dim hover:text-paper",
+              ]}
+              aria-current={l.active ? "page" : undefined}
+              {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  // On scrolling pages: tuck the header away going down, bring it back going up.
+  const header = document.querySelector<HTMLElement>("[data-site-header]")!;
+  let lastY = scrollY;
+  addEventListener(
+    "scroll",
+    () => {
+      const y = scrollY;
+      header.classList.toggle("is-tucked", y > lastY && y > 160);
+      header.classList.toggle("is-scrolled", y > 40);
+      lastY = y;
+    },
+    { passive: true },
+  );
+</script>
+
+<style>
+  .site-header {
+    transition: translate 0.6s var(--ease-out-expo);
+  }
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(var(--color-ink) 35%, transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .site-header.is-scrolled::before {
+    opacity: 1;
+  }
+  .site-header.is-tucked {
+    translate: 0 -100%;
+  }
+</style>

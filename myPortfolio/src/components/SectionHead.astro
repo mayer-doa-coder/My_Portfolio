@@ -1,0 +1,14 @@
+---
+interface Props {
+  index: string;
+  label: string;
+  title: string;
+  id?: string;
+}
+const { index, label, title, id } = Astro.props;
+---
+
+<div class="mb-10 md:mb-16">
+  <p class="label mb-4"><span class="text-signal">{index}</span> — {label}</p>
+  <h2 id={id} class="display text-[clamp(2.6rem,8vw,7.5rem)]" data-split>{title}</h2>
+</div>

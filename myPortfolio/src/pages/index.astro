@@ -1,28 +1,509 @@
 ---
+import { getImage } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/Navbar.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Education from "../components/Education.astro";
-import Experience from "../components/Experience.astro";
-import Skills from "../components/Skills.astro";
-import Achievements from "../components/Achievements.astro";
-import Leadership from "../components/Leadership.astro";
-import Projects from "../components/Projects.astro";
-import Contact from "../components/Contact.astro";
-import Footer from "../components/Footer.astro";
+import { Problems } from "../lib/problems";
+
+const stageProblems = await Promise.all(
+  Problems.map(async (p) => {
+    const img = await getImage({ src: p.Shot, width: 1024, format: "webp", quality: 72 });
+    const longestWord = Math.max(...p.Name.split(/\s+/).map((w) => w.length));
+    return {
+      letter: p.letter,
+      name: p.Name,
+      slug: p.slug,
+      short: p.ShortDesc.split(/(?<=\.)\s/)[0],
+      tech: p.Tech.map((t) => t.title).join(" · "),
+      verdict: p.Status === "completed" ? "AC · Accepted" : "Pending · In progress",
+      image: img.src,
+      // Longest word must fit the ring width, so long names get a smaller size.
+      longestWord,
+    };
+  }),
+);
+const first = stageProblems[0];
 ---
 
-<Layout>
-  <Navbar />
-  <Hero />
-  <About />
-  <Education />
-  <Experience />
-  <Skills />
-  <Projects />
-  <Achievements />
-  <Leadership />
-  <Contact />
-  <Footer />
+<Layout stage>
+  <main id="main" class="stage" data-stage>
+    <h1 class="sr-only">Tawhidul Hasan: selected projects, presented as a problemset</h1>
+
+    <canvas class="gl" data-gl aria-hidden="true"></canvas>
+    <div class="fallback duotone" aria-hidden="true">
+      <img data-fallback src={first.image} alt="" />
+    </div>
+
+    <!-- Scoreboard strip: one column per problem, balloons for what you've seen -->
+    <nav class="board" aria-label="Problems" data-hud>
+      <span class="label hidden md:inline">Problemset</span>
+      <ol class="cells">
+        {
+          stageProblems.map((p) => (
+            <li>
+              <button class="cell" data-board-cell aria-label={`Problem ${p.letter}: ${p.name}`}>
+                {p.letter}
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+      <span class="label">Solved <b class="text-paper font-medium" data-solved>1/{stageProblems.length}</b></span>
+      <span class="all-solved-note label">Rank 1 · thanks for judging</span>
+    </nav>
+
+    <!-- Active problem statement -->
+    <aside class="info" data-hud aria-label="Selected problem">
+      <p class="label">Problem <span class="text-signal" data-info-letter>{first.letter}</span></p>
+      <h2 class="info-name" data-info-name>{first.name}</h2>
+      <p class="info-short" data-info-short>{first.short}</p>
+      <dl class="info-meta">
+        <div>
+          <dt class="label">Stack</dt>
+          <dd data-info-tech>{first.tech}</dd>
+        </div>
+        <div>
+          <dt class="label">Verdict</dt>
+          <dd class="text-signal" data-info-verdict>{first.verdict}</dd>
+        </div>
+      </dl>
+      <a class="open link-line" href={`/work/${first.slug}`} data-info-link data-hud-link>
+        Open problem <span aria-hidden="true">↗</span>
+      </a>
+    </aside>
+
+    <!-- Curved title ring -->
+    <div class="orbit" data-ring>
+      <ul class="ring-track">
+        {
+          stageProblems.map((p) => (
+            <li class="ring-item" data-ring-item style={`--L:${p.longestWord}`}>
+              <a href={`/work/${p.slug}`} tabindex="-1" draggable="false">
+                <span class="ring-letter">{p.letter}</span>
+                <span class="ring-title">{p.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <p class="sr-only" role="status" data-announce></p>
+
+    <p class="hint label" data-hud>
+      <span class="hidden md:inline">Scroll · Drag · ← →</span>
+      <span class="md:hidden">Swipe</span>
+    </p>
+
+    <div class="controls" data-hud>
+      <button class="ctl" data-index-toggle aria-expanded="false" aria-controls="problemset">
+        Index <span class="text-dim">({stageProblems.length})</span>
+      </button>
+      <button class="ctl sound" data-sound aria-pressed="false" aria-label="Sound">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+    </div>
+
+    <!-- Accessible full list of every project -->
+    <div id="problemset" class="panel" data-index-panel role="dialog" aria-modal="true" aria-labelledby="problemset-title">
+      <div class="panel-head">
+        <h2 id="problemset-title" class="display text-4xl md:text-6xl">Problemset</h2>
+        <button class="ctl" data-index-close>Close <span aria-hidden="true">✕</span></button>
+      </div>
+      <ol class="panel-list">
+        {
+          stageProblems.map((p) => (
+            <li data-index-row>
+              <a href={`/work/${p.slug}`} class="row">
+                <span class="row-letter">{p.letter}</span>
+                <span class="row-name">{p.name}</span>
+                <span class="row-tech label">{p.tech}</span>
+                <span class="row-verdict">{p.verdict.split(" · ")[0]}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+      <button class="panel-backdrop" data-index-close tabindex="-1" aria-hidden="true"></button>
+    </div>
+
+    <div class="cursor" data-cursor data-state="idle" aria-hidden="true">
+      <span class="c-drag">Drag</span>
+      <span class="c-open">Open ↗</span>
+    </div>
+
+    <div class="loader" data-loader aria-hidden="true">
+      <div class="loader-log">
+        <p class="text-dim">$ g++ -O2 -std=c++20 tawhidul.cpp</p>
+        <p>Running on test <span data-loader-test>1</span> …</p>
+        <p class="accepted" data-loader-verdict hidden>
+          <span class="balloon"></span> Accepted
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline id="problems-data" type="application/json" set:html={JSON.stringify(stageProblems)} />
+  <noscript>
+    <!-- Without JavaScript there is no 3D scene or carousel: show the problemset as a plain list of links. -->
+    <style is:inline>
+      [data-loader], [data-ring], [data-cursor], .controls, .board, .hint, .info { display: none !important; }
+      .panel-head button, .panel-backdrop { display: none !important; }
+      .site-header { z-index: 70 !important; }
+      body { overflow: auto !important; height: auto !important; }
+    </style>
+  </noscript>
 </Layout>
+
+<script>
+  import "../scripts/stage";
+</script>
+
+<style>
+  .stage {
+    --ring-r: 100vw;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  @media (pointer: fine) {
+    .stage { cursor: grab; }
+    .stage.is-dragging { cursor: grabbing; }
+  }
+
+  .gl {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .fallback { display: none; }
+  .no-gl .fallback {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    translate: -50% -50%;
+    width: min(38vw, 360px);
+    aspect-ratio: 4 / 5;
+    border-radius: 50% 50% 47% 47% / 56% 56% 44% 44%;
+  }
+  .no-gl .fallback img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---- scoreboard strip ---- */
+  .board {
+    position: absolute;
+    top: 84px;
+    left: 50%;
+    translate: -50% 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+  }
+  @media (min-width: 900px) {
+    .board { top: 30px; }
+  }
+  .cells { display: flex; gap: 4px; }
+  /* On phones the nine cells alone fill the width; the counter text would push the strip off-screen. */
+  @media (max-width: 519px) {
+    .board > .label,
+    .all-solved-note { display: none !important; }
+  }
+  .cell {
+    position: relative;
+    width: 30px;
+    height: 34px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-dim);
+    border: 1px solid var(--color-faint);
+    transition: color 0.3s, background 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+  .cell:hover { color: var(--color-paper); border-color: var(--color-dim); }
+  .cell.is-solved::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    width: 7px;
+    height: 9px;
+    border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
+    background: var(--color-signal);
+  }
+  .cell.is-active {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+    color: var(--color-ink);
+  }
+  .all-solved-note { display: none; color: var(--color-signal); }
+  :global(.all-solved) .all-solved-note { display: inline; }
+
+  /* ---- problem statement ---- */
+  .info {
+    position: absolute;
+    z-index: 20;
+    left: 20px;
+    top: 136px;
+    width: min(62vw, 300px);
+  }
+  @media (min-width: 900px) {
+    .info {
+      left: clamp(28px, 4vw, 64px);
+      top: 50%;
+      translate: 0 -62%;
+    }
+  }
+  /* Soft ink backing so every world stays readable behind the text. */
+  .info::before {
+    content: "";
+    position: absolute;
+    inset: -70px -90px;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgb(10 10 11 / 0.82), rgb(10 10 11 / 0.5) 60%, transparent);
+    pointer-events: none;
+  }
+  .info-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.35rem;
+    line-height: 1.05;
+    margin: 0.5rem 0 0.9rem;
+  }
+  .info-short {
+    display: none;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--color-dim);
+  }
+  @media (min-width: 900px) {
+    .info-short { display: block; }
+  }
+  .info-meta {
+    display: grid;
+    gap: 0.7rem;
+    margin: 1.1rem 0 1.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .info-meta dd { margin-top: 0.2rem; }
+  .open { font-size: 0.95rem; display: none; }
+  @media (min-width: 900px) {
+    .open { display: inline-block; }
+  }
+
+  /* ---- title ring ---- */
+  .orbit {
+    position: absolute;
+    inset: auto 0 max(7vh, 44px) 0;
+    height: 1px;
+    perspective: 1600px;
+    perspective-origin: 50% 0%;
+    z-index: 10;
+  }
+  .ring-track {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform-style: preserve-3d;
+    transform: translateZ(calc(var(--ring-r) * -1));
+  }
+  .ring-item {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(62vw, 980px);
+    --size: clamp(1.9rem, min(6.6vw, calc(56vw / (var(--L) * 0.7))), 7.5rem);
+    text-align: center;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+  @media (max-width: 699px) {
+    .ring-item {
+      width: 90vw;
+      --size: clamp(2rem, min(13vw, calc(84vw / (var(--L) * 0.7))), 5rem);
+    }
+  }
+  .ring-item a {
+    display: block;
+    -webkit-user-drag: none;
+  }
+  .ring-letter {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-signal);
+    margin-bottom: 0.6rem;
+    opacity: var(--fill);
+  }
+  .ring-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--size);
+    line-height: 0.86;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: color-mix(in srgb, var(--color-paper) calc(var(--fill, 0) * 100%), transparent);
+    -webkit-text-stroke: 1.5px rgb(238 235 227 / 0.8);
+    transition: color 0.4s;
+  }
+  .ring-item a[aria-current="true"]:hover .ring-title,
+  .ring-item a[aria-current="true"]:focus-visible .ring-title {
+    color: var(--color-signal);
+    -webkit-text-stroke-color: var(--color-signal);
+  }
+
+  /* ---- corner controls ---- */
+  .hint {
+    position: absolute;
+    left: clamp(20px, 4vw, 64px);
+    bottom: 24px;
+    z-index: 20;
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .hint { display: block; }
+  }
+  .controls {
+    position: absolute;
+    right: clamp(20px, 4vw, 64px);
+    top: 136px;
+    z-index: 30;
+    display: flex;
+    gap: 8px;
+  }
+  @media (min-width: 900px) {
+    .controls { top: auto; bottom: 24px; }
+  }
+  .ctl {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid var(--color-faint);
+    background: rgb(10 10 11 / 0.5);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .ctl:hover { border-color: var(--color-paper); }
+  .sound { width: 44px; padding: 0; display: grid; place-items: center; }
+  .bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .bars i {
+    width: 2px;
+    height: 3px;
+    background: var(--color-paper);
+    transition: height 0.3s;
+  }
+  :global(.sound-on) .bars i { background: var(--color-signal); animation: bar 0.9s ease-in-out infinite alternate; }
+  :global(.sound-on) .bars i:nth-child(2) { animation-delay: -0.3s; }
+  :global(.sound-on) .bars i:nth-child(3) { animation-delay: -0.6s; }
+  :global(.sound-on) .bars i:nth-child(4) { animation-delay: -0.15s; }
+  @keyframes bar { from { height: 3px; } to { height: 12px; } }
+
+  /* ---- problemset overlay ---- */
+  .panel {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    padding: 96px clamp(20px, 5vw, 80px) 40px;
+    background: rgb(10 10 11 / 0.92);
+    backdrop-filter: blur(14px);
+    overflow-y: auto;
+    touch-action: pan-y;
+    user-select: text;
+    cursor: auto;
+  }
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .panel-list { position: relative; z-index: 1; border-top: 1px solid var(--color-faint); }
+  .panel-backdrop { position: fixed; inset: 0; z-index: 0; cursor: default; }
+  .row {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--color-faint);
+    transition: padding 0.5s var(--ease-out-expo), color 0.3s;
+  }
+  @media (min-width: 900px) {
+    .row { grid-template-columns: 4rem 1fr 22rem 8rem; }
+  }
+  .row:hover { padding-left: 1rem; color: var(--color-signal); }
+  .row-letter { font-family: var(--font-mono); color: var(--color-signal); }
+  .row-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 3vw, 2.4rem); text-transform: uppercase; line-height: 1; }
+  .row-tech { display: none; }
+  @media (min-width: 900px) {
+    .row-tech { display: block; }
+  }
+  .row-verdict { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-signal); text-align: right; }
+
+  /* ---- cursor label ---- */
+  .cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 70;
+    pointer-events: none;
+    display: none;
+  }
+  @media (pointer: fine) {
+    .cursor { display: block; }
+  }
+  .cursor span {
+    position: absolute;
+    translate: 14px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    white-space: nowrap;
+    opacity: 0;
+    scale: 0.8;
+    transition: opacity 0.25s, scale 0.25s;
+  }
+  .c-drag { background: var(--color-paper); color: var(--color-ink); }
+  .c-open { background: var(--color-signal); color: var(--color-ink); }
+  .cursor[data-state="drag"] .c-drag,
+  .cursor[data-state="open"] .c-open { opacity: 1; scale: 1; }
+
+  /* ---- loader ---- */
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: grid;
+    place-items: center;
+    background: var(--color-ink);
+    clip-path: inset(0 0 0 0);
+  }
+  .loader-log {
+    font-family: var(--font-mono);
+    font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+    line-height: 2;
+    min-width: min(80vw, 340px);
+  }
+  .accepted { color: var(--color-signal); display: flex; align-items: center; gap: 0.6rem; }
+  .accepted[hidden] { display: none; }
+
+  /* HUD stays invisible until the loader has cleared. */
+  .stage:not(.is-ready) [data-hud] { visibility: hidden; }
+</style>

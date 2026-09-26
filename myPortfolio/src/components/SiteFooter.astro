@@ -1,0 +1,9 @@
+---
+import { Profile } from "../lib/content";
+---
+
+<footer class="px-5 md:px-8 py-8 border-t border-faint flex flex-col md:flex-row gap-3 justify-between label">
+  <p>© {new Date().getFullYear()} {Profile.name}</p>
+  <p>Built with Astro, Three.js &amp; GSAP</p>
+  <p>Verdict: <span class="text-signal">Accepted</span></p>
+</footer>

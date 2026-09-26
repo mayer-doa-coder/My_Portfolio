@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { Problems, type Problem } from "../../lib/problems";
+
+export function getStaticPaths() {
+  return Problems.map((problem, i) => ({
+    params: { slug: problem.slug },
+    props: { problem, next: Problems[(i + 1) % Problems.length] },
+  }));
+}
+
+interface Props {
+  problem: Problem;
+  next: Problem;
+}
+const { problem: p, next } = Astro.props;
+const verdict = p.Status === "completed" ? "Accepted" : "In progress";
+const live = p.Link && p.Link !== "#" && p.Link !== p.Source ? p.Link : null;
+---
+
+<Layout title={`${p.Name} — Tawhidul Hasan`} description={p.ShortDesc}>
+  <main id="main" class="px-5 md:px-8">
+    <header class="pt-36 md:pt-48">
+      <a href={`/#${p.letter}`} class="label link-line hover:text-paper">← Problemset</a>
+      <p class="label mt-10 mb-5">
+        Problem <span class="text-signal">{p.letter}</span> / {String.fromCharCode(64 + Problems.length)}
+      </p>
+      <h1 class="display text-[clamp(3rem,11vw,12rem)] [overflow-wrap:anywhere]" data-split>{p.Name}</h1>
+
+      <dl class="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-y-8 border-t border-faint pt-6" data-reveal>
+        <div>
+          <dt class="label">Verdict</dt>
+          <dd class="mt-2 font-mono text-signal flex items-center gap-2">
+            <span class="balloon text-signal" aria-hidden="true"></span>{verdict}
+          </dd>
+        </div>
+        <div class="col-span-2 md:col-span-2">
+          <dt class="label">Stack</dt>
+          <dd class="mt-2">{p.Tech.map((t) => t.title).join(" · ")}</dd>
+        </div>
+        <div>
+          <dt class="label">Links</dt>
+          <dd class="mt-2 flex flex-wrap gap-x-5">
+            {p.hasSource ? (
+              <a class="link-line hover:text-signal" href={p.Source} target="_blank" rel="noreferrer">Source ↗</a>
+            ) : (
+              <span class="text-dim">Hardware prototype</span>
+            )}
+            {live && <a class="link-line hover:text-signal" href={live} target="_blank" rel="noreferrer">Live ↗</a>}
+          </dd>
+        </div>
+      </dl>
+    </header>
+
+    <!-- Original colours at the image's own shape, never enlarged past its real width. -->
+    <figure class="mt-14 md:mt-20" data-reveal>
+      <Image
+        src={p.Shot}
+        alt={`${p.Name} screenshot`}
+        widths={[640, 1024, 1440, 1920].filter((w) => w < p.Shot.width).concat(p.Shot.width)}
+        sizes={`(min-width: ${p.Shot.width}px) ${p.Shot.width}px, 100vw`}
+        quality={90}
+        class="block mx-auto w-full h-auto max-h-[85vh] object-contain"
+        style={{ maxWidth: `${p.Shot.width}px` }}
+        loading="eager"
+      />
+    </figure>
+
+    <section class="py-24 md:py-36 grid gap-10 md:grid-cols-12 md:gap-8" aria-labelledby="statement">
+      <h2 id="statement" class="label md:col-span-3 pt-2">Statement</h2>
+      <p class="md:col-span-8 font-display font-medium text-2xl md:text-4xl leading-[1.2] text-paper/90" data-reveal>
+        {p.Desc}
+      </p>
+    </section>
+
+    <section class="pb-24 md:pb-36 grid gap-10 md:grid-cols-12 md:gap-8" aria-labelledby="subtasks">
+      <h2 id="subtasks" class="label md:col-span-3 pt-2">Subtasks</h2>
+      <ol class="md:col-span-9 border-t border-faint">
+        {
+          p.features.map((f, i) => (
+            <li class="group grid gap-2 md:grid-cols-9 md:gap-8 py-7 border-b border-faint" data-reveal>
+              <span class="font-mono text-sm text-signal md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="md:col-span-3 font-display font-semibold text-xl md:text-2xl leading-tight transition-colors group-hover:text-signal">
+                {f.title}
+              </h3>
+              <p class="md:col-span-5 text-paper/75 leading-relaxed">{f.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="pb-24 md:pb-36 grid gap-10 md:grid-cols-12 md:gap-8" aria-labelledby="constraints">
+      <h2 id="constraints" class="label md:col-span-3 pt-2">Constraints</h2>
+      <ul class="md:col-span-9 grid gap-x-8 gap-y-8 sm:grid-cols-2">
+        {
+          p.Tech.map((t) => (
+            <li data-reveal>
+              <h3 class="font-display font-semibold text-xl">{t.title}</h3>
+              <p class="text-dim mt-1.5 leading-relaxed">{t.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <a
+      href={`/work/${next.slug}`}
+      class="group block border-t border-faint py-16 md:py-24"
+      aria-label={`Next problem ${next.letter}: ${next.Name}`}
+    >
+      <p class="label mb-5">Next problem <span class="text-signal">{next.letter}</span></p>
+      <p class="display text-[clamp(2.6rem,9vw,10rem)] outline-text transition-colors duration-500 group-hover:text-paper [overflow-wrap:anywhere]">
+        {next.Name} <span class="inline-block transition-transform duration-500 group-hover:translate-x-4" aria-hidden="true">→</span>
+      </p>
+    </a>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<script>
+  import "../../scripts/scroll";
+</script>
