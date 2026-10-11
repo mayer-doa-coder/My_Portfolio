@@ -16,6 +16,14 @@ import {
 } from "../lib/content";
 
 const podium = Standings.filter((s) => s.place !== null).length;
+const identityWords = [
+  "Problem solver",
+  "Lifelong learner",
+  "Web developer",
+  "Software engineer",
+  "Competitive programmer",
+  "AI builder",
+];
 ---
 
 <Layout
@@ -26,8 +34,14 @@ const podium = Standings.filter((s) => s.place !== null).length;
     <!-- Intro -->
     <section class="pt-36 md:pt-48 pb-24 md:pb-36" aria-labelledby="intro-title">
       <p class="label mb-6"><span class="text-signal">00</span> — Profile</p>
-      <h1 id="intro-title" class="display text-[clamp(3.2rem,12vw,13rem)]" data-split>
-        Problem<br />solver.
+      <h1 id="intro-title" class="display text-[clamp(3.2rem,12vw,13rem)]">
+        <span class="sr-only">{identityWords.join(", ")}</span>
+        <span aria-hidden="true">
+          <span class="block text-paper/45">I am a</span>
+          <span class="block text-signal">
+            <span data-typewriter data-words={JSON.stringify(identityWords)}>Problem solver</span><span class="type-caret">_</span>
+          </span>
+        </span>
       </h1>
 
       <div class="mt-16 md:mt-24 grid gap-12 md:grid-cols-12 md:gap-8">
@@ -243,3 +257,53 @@ const podium = Standings.filter((s) => s.place !== null).length;
 <script>
   import "../scripts/scroll";
 </script>
+
+<script>
+  const typewriter = document.querySelector<HTMLElement>("[data-typewriter]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (typewriter && !reduceMotion) {
+    const words = JSON.parse(typewriter.dataset.words ?? "[]") as string[];
+    let wordIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+
+    const type = () => {
+      const word = words[wordIndex];
+      if (!word) return;
+
+      characterIndex += deleting ? -1 : 1;
+      typewriter.textContent = word.slice(0, characterIndex);
+
+      if (!deleting && characterIndex === word.length) {
+        deleting = true;
+        window.setTimeout(type, 1600);
+        return;
+      }
+
+      if (deleting && characterIndex === 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        window.setTimeout(type, 300);
+        return;
+      }
+
+      window.setTimeout(type, deleting ? 35 : 75);
+    };
+
+    typewriter.textContent = "";
+    window.setTimeout(type, 350);
+  }
+</script>
+
+<style>
+  .type-caret {
+    display: inline-block;
+    margin-left: 0.08em;
+    animation: blink 0.85s steps(2, jump-none) infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>

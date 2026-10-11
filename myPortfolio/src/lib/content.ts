@@ -24,6 +24,10 @@ export const Socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/tawhidul-hasan401/" },
   { label: "Instagram", href: "https://www.instagram.com/the_f.e.r.o.c.i.o.u.s" },
   { label: "Facebook", href: "https://www.facebook.com/tawhidul.hasan.792/" },
+  { label: "LeetCode", href: "https://leetcode.com/u/mayer_doa_coder/" },
+  { label: "CodeChef", href: "https://www.codechef.com/users/mayer_doa" },
+  { label: "AtCoder", href: "https://atcoder.jp/users/mayer_doa_coder" },
+  { label: "Codeforces", href: "https://codeforces.com/profile/mayer_doa_coder" },
 ];
 
 export const Stats = [

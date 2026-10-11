@@ -44,7 +44,15 @@ const live = p.Link && p.Link !== "#" && p.Link !== p.Source ? p.Link : null;
           <dt class="label">Links</dt>
           <dd class="mt-2 flex flex-wrap gap-x-5">
             {p.hasSource ? (
-              <a class="link-line hover:text-signal" href={p.Source} target="_blank" rel="noreferrer">Source ↗</a>
+              <a
+                class="link-line hover:text-signal"
+                href={p.Source}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open the GitHub repository for ${p.Name}`}
+              >
+                GitHub repository ↗
+              </a>
             ) : (
               <span class="text-dim">Hardware prototype</span>
             )}
@@ -97,8 +105,18 @@ const live = p.Link && p.Link !== "#" && p.Link !== p.Source ? p.Link : null;
       <ul class="md:col-span-9 grid gap-x-8 gap-y-8 sm:grid-cols-2">
         {
           p.Tech.map((t) => (
-            <li data-reveal>
-              <h3 class="font-display font-semibold text-xl">{t.title}</h3>
+            <li class="group border border-faint bg-ink-2/30 p-5 transition-colors hover:border-signal" data-reveal>
+              <div class="flex items-center gap-4">
+                <Image
+                  src={t.icon}
+                  alt=""
+                  width={44}
+                  height={44}
+                  class="h-11 w-11 object-contain transition-transform duration-300 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <h3 class="font-display font-semibold text-xl">{t.title}</h3>
+              </div>
               <p class="text-dim mt-1.5 leading-relaxed">{t.description}</p>
             </li>
           ))
